@@ -175,7 +175,7 @@ void Main_Routine(void){
         printf("Select Mode to run \n");
         printf("1. Insert Node(series) \n");
         printf("2. Insert Node(specific section) \n");
-        printf("3. Delete Node \n");
+        printf("3. Find Node \n");
         printf("4. Print Node \n");
         printf("5. Delete Node\n");
         printf("6. Exit Program\n");
@@ -204,7 +204,7 @@ void Main_Routine(void){
         break;
 
         case 3:
-        printf("please enter node's data you want to delete\n");
+        printf("please enter node's data to find\n");
         scanf("%d",&data);
         temp = Find_Node(List_head, data);
         break;
