@@ -19,14 +19,12 @@ typedef int element;
 
 
 
-typedef struct _Tree_Node{
+typedef struct _Tree_Node {
 
     element data;
-    struct Tree_Node* Left_Node, *Right_Node;
+    struct _Tree_Node* Left_Node, * Right_Node;
 
 }Tree_Node;
-
-
 
 
 
@@ -39,9 +37,10 @@ Tree_Node* Make_Tree_Node(element);
 Tree_Node* Find_empty_Node(Tree_Node*);
 
 int Insert_Node(Tree_Node*, element, int );
-
-int Delete_Queue(Queue_init_type*);
+int Is_RigthNode_Empty(Tree_Node*);
+int Is_LeftNode_Empty(Tree_Node*);
 int Is_Empty(Tree_Node*);
-void Print_Queue(Queue_init_type*);
+Tree_Node* Search_Node(Tree_Node*, element);
+void Print_Tree(Tree_Node*);
 
 
