@@ -73,70 +73,44 @@ int Insert_Node(Tree_Node* Root_Node, element Input_data, int level){
 
 }
 
-/*
-int Delete_Queue(Tree_Node* Node){
-
-    element Data_ret;
-    Queue_type *Old_Node;
-
-    if(Is_Empty(Queue) == True){
-        printf("Error : Queue is empty\n");
-        return -1;
-    }
-    else {
-        if(Queue->front == Queue->tail){ // Last element
-            Data_ret = Queue->front->data;
-            Queue->front = NULL;
-            Queue->tail = NULL;
-            printf("Warning : Queue is empty now\n");
-            return Data_ret;
-        }
-
-        Data_ret = Queue->front->data;
-        Old_Node = Queue->front;
-        Queue->front = Queue->front->link;
-        free(Old_Node);
-        
-        return Data_ret;
-    }
-}
-*/
-
 Tree_Node* Search_Node(Tree_Node* Node, element data){
 
     static int level_search = 0;
+    Tree_Node* Result_Node = NULL;
     printf("level %d \n",level_search);
 
     if(Node->data == data)
     {
         printf("Find completed : level %d \n",level_search);
-        return Node;
+        Result_Node = Node;
+        level_search = 0;
+        return Result_Node;
     }
     else if(Is_LeftNode_Empty(Node) != True && Node->Left_Node->data == data)
     {
-        return Node->Left_Node;
+        Result_Node = Node->Left_Node;
+        level_search = 0;
+        return Result_Node;
     }
     else if(Is_RightNode_Empty(Node) != True &&Node->Right_Node->data == data){
-        return Node->Right_Node;
+        
+        Result_Node = Node->Right_Node;
+        level_search = 0;
+        return Result_Node;
     }
-    
     else {
         if(Is_LeftNode_Empty(Node) != True && level_search <=3){
             level_search ++;
-            printf("level %d \n",level_search);
-            Search_Node(Node->Left_Node, data);
+            Result_Node = Search_Node(Node->Left_Node, data);
         }
         else if(Is_RightNode_Empty(Node) != True && level_search <=3){
             level_search ++;
-            Search_Node(Node->Right_Node, data);
+            Result_Node = Search_Node(Node->Right_Node, data);
         }
-
-     
-        return NULL;
+        
     }
 
-
-
+    return Result_Node;
 }
 
 int Is_LeftNode_Empty(Tree_Node* Node){
@@ -171,8 +145,7 @@ void Print_Tree(Tree_Node* Node){
         level_print--;
         if(level_print == 0)
         printf("end \n");
-    
-    
+        
 }
 
 void main_routine(){
@@ -182,7 +155,7 @@ void main_routine(){
     int Result;
     Root_Node = Make_Tree_Node(0);
     printf("\n/*********************************/ \n");
-    printf("This is a Complete Binary Tree Simulation Program. (Function : Insert(Preorder Traversal), Delete, Print) \n");
+    printf("This is a Complete Binary Tree Simulation Program. (Function : Insert(Preorder Traversal), Print, Search) \n");
     printf("Date : 2023.09.19 Version : 1.0 \n");
     printf("Author : Kevin Kwon \n");
     printf("/*********************************/ \n");
@@ -196,7 +169,7 @@ void main_routine(){
         printf("Select Mode to run \n");
         printf("1. Insert element \n");
         printf("2. Search element \n");
-        printf("3. Delete element\n");
+        printf("3. Delete element(TBD)\n");
         printf("4. Print Tree \n");
         printf("5. Exit Program\n");
         printf("****************************************\n");
@@ -221,11 +194,6 @@ void main_routine(){
                printf("Can't find data %d\n",Input_data);
             else 
                 printf("Data search is completed (%d)\n", Search_ptr->data);
-
-            break;
-        case Delete:
-            //Delete_data = Delete_Queue(Queue);
-            //printf("Element %d is successfully deleted\n",Delete_data);
             break;
         case Print:
             Print_Tree(Root_Node);
